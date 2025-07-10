@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Setup') {
+            steps {
+                git branch: 'main', url: 'https://github.com/rm-oliveira/TCC-EBAC.git'
+                bat '''cd API
+                npm install'''
+            }
+        }
+        stage('Test') {
+            steps {
+                bat '''cd API
+                set NO_COLOR=1
+                npx cypress run'''
+            }
+        }
+    }
+}
